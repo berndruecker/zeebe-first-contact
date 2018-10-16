@@ -10,13 +10,13 @@ public class Worker {
   public static void main(String[] args) {
     ZeebeClient zeebe = ZeebeClient.newClient();
 
-    JobWorker jobWorker = zeebe.topicClient().jobClient().newWorker()
+    JobWorker jobWorker = zeebe.jobClient().newWorker()
         .jobType("hello-world")
         .handler((client, job) -> {
           
           
           System.out.println("Hello world with payload '"+job.getPayload()+"' in " + job );
-          client.newCompleteCommand(job).send().join();
+          client.newCompleteCommand(job.getKey()).send().join();
           
         }).timeout(Duration.ofMinutes(1))
         .name("demo-worker")
