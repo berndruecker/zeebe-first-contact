@@ -9,7 +9,7 @@ public class DeployWorkflowModel {
   public static void main(String[] args) {
     ZeebeClient zeebe = ZeebeClient.newClient();
 
-    ZeebeFuture<DeploymentEvent> deploymentFuture = zeebe.topicClient().workflowClient().newDeployCommand()
+    ZeebeFuture<DeploymentEvent> deploymentFuture = zeebe.workflowClient().newDeployCommand()
       .addResourceFromClasspath("prepared.bpmn")
       .send();
     
